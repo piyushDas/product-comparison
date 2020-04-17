@@ -46,18 +46,25 @@ const View = function (id, data) {
         this.bindDifferentiator()
     }
 
-    // this.renderTemplate = () => {
-    //     document.getElementById(id).innerHTML = `
-    //         ${productSelector(compareSummary, selector, value)}
-    //     `
-    //     this.bindSelect()
-    // }
-
     const hideRows = () => {
-        const row = document.getElementById('feature-table').children
+        const row = document.getElementById('feature-table').children;
+        let headerElIndex;
+        let headerEl;
+        let count = 0
         for (let index = 0; index < row.length; index++) {
-            if (!row[index].classList.contains('table-header') && row[index].children[1].innerText === row[index].children[2].innerText) {
-                row[index].style.display = 'none'
+            let currentEl = row[index]
+            if(currentEl.classList.contains('table-header')){
+                count=0;
+                headerElIndex = index;
+                headerEl = row[index];
+            } else {
+                if(currentEl.children[1].innerText === currentEl.children[2].innerText){
+                    count++;
+                    row[index].style.display = 'none'
+                }
+                if((!row[index + 1] || (row[index + 1] && row[index + 1].classList.contains('table-header'))) && count == (index - headerElIndex)){
+                    headerEl.style.display = 'none'
+                }
             }
         }
     }
@@ -83,17 +90,39 @@ const View = function (id, data) {
     }
 
 
+    this.bindRemoval = () => {
+        const closeBtns = document.getElementsByClassName('close')
+        const removeSelection = e => {
+            this.selectedProducts[e.currentTarget.parentElement.id] = ''
+            this.bindTemplate()
+            document.getElementById('show-diff').setAttribute('disabled', true)
+        }
+        if (closeBtns.length) {
+            for (const close of closeBtns) {
+                close.removeEventListener('click', removeSelection)
+                close.addEventListener('click', removeSelection)
+            }
+        }
+    }
+
     this.bindSelect = () => {
         const selects = document.getElementsByClassName('select-product')
         const selectoption = e => {
             this.selectedProducts[e.currentTarget.id] = e.currentTarget.value
             this.bindTemplate()
+            this.bindRemoval()
+            if (this.selectedProducts.selector_1 && this.selectedProducts.selector_2) {
+                document.getElementById('show-diff').removeAttribute('disabled')
+            } else {
+                document.getElementById('show-diff').setAttribute('disabled', true)
+            }
         }
         for (const select of selects) {
             select.removeEventListener('change', selectoption)
             select.addEventListener('change', selectoption)
         }
-    } 
+        this.bindRemoval()
+    }
 }
 
 export default View

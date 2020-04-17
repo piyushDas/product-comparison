@@ -27,7 +27,7 @@ const productItem = (item, data, id, selectedKey) => {
         const { finalPrice, price, totalDiscount} = data.productPricingSummary[selectedKey]
         const imageUrl = data.images[selectedKey]
         template =  `
-        <div id="${id} "class="product-list-item">
+        <div id="${id}" class="product-list-item">
             <span class="close"> X </span>
             <div>
                 <img

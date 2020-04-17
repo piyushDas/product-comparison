@@ -10,10 +10,11 @@ const productSelector = (data, options, products) => {
                     <div class="section-title">Compare</div>
                     <div id="comparator">Please select an item to compare</div>
                 </div>
-                <div>
-                    <label for="show-diff"></label>
-                    <input type="checkbox" id="show-diff" value="" > 
-                    Show differences only
+                <div class="flex">
+                    <input type="checkbox" id="show-diff" value="" disabled >
+                    <label for="show-diff"> 
+                        Show differences only
+                    </label>
                 </div>
             </div>
             <div class="w-30p">
