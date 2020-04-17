@@ -13,8 +13,8 @@ import View from './view.js'
  */
 const initiateApp = async () => {
     const dataSet = new Service()
-    let itemsData = await dataSet.getData()
-    const view = new View('root', itemsData.items)
+    let productsData = await dataSet.getData()
+    const view = new View('root', productsData.products)
     view.bindTemplate()
 }
 
