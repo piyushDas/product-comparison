@@ -7,7 +7,8 @@ const ProductItem = ({
   id,
   selectedKey,
   setValue,
-  optionsUpdater
+  optionsUpdater,
+  setDiffFlag
 }) => {
   const imgHeight = "auto"
   const imgWidth = "auto"
@@ -54,6 +55,7 @@ const ProductItem = ({
       const opts = {...items}
       opts[selectedKey] = data.titles[selectedKey]
       optionsUpdater(opts)
+      setDiffFlag(false)
     }
     template = (
       <div id={id} className="product-list-item">

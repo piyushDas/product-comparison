@@ -22,6 +22,7 @@
     background: #fff;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .product-list-item img {
     width: 90%;

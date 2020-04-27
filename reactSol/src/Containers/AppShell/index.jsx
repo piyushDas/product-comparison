@@ -16,7 +16,9 @@ const DesktopShell = () => {
     setSelectorOne,
     setSelectorTwo,
     selectorOptions,
-    setSelectorOptions
+    setSelectorOptions,
+    showDiff,
+    setDiffFlag
   } = useContext(AppContext)
 
   useEffect(() => {
@@ -33,8 +35,15 @@ const DesktopShell = () => {
         setSelectorOne={setSelectorOne}
         setSelectorTwo= {setSelectorTwo}
         setSelectorOptions={setSelectorOptions}
+        showDiff={showDiff}
+        setDiffFlag={setDiffFlag}
       />
-      <FeaturesTable featureList={featuresList} selector1={selectorOne} selector2={selectorTwo} />
+      <FeaturesTable
+        featureList={featuresList}
+        selector1={selectorOne}
+        selector2={selectorTwo}
+        showDiff={showDiff}
+      />
     </div>
   )
 }

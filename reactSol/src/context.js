@@ -13,6 +13,7 @@ export const AppState = ({ children }) => {
   const [selectorTwo, setSelectorTwo] = useState('')
   const [selectorOptions, setSelectorOptions] = useState({})
   const [response, setResponse] = useState({})
+  const [showDiff, setDiffFlag] = useState(false)
 
   const getData = () => {
     appAxiosInstance('http://www.mocky.io/v2/5e86ec5531000011d8814754', 'get')
@@ -46,7 +47,9 @@ export const AppState = ({ children }) => {
         selectorOptions,
         setSelectorOptions,
         response,
-        getData
+        getData,
+        showDiff,
+        setDiffFlag
       }}
     >
       {children}

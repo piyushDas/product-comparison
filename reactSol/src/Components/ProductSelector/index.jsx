@@ -9,11 +9,20 @@ const ProductSelector = ({
   selector2,
   setSelectorOne,
   setSelectorTwo,
-  setSelectorOptions
+  setSelectorOptions,
+  showDiff,
+  setDiffFlag
 }) => {
   
   const showDifferences = () => {
-    
+    setDiffFlag(!showDiff)
+  }
+
+  const checkSelectors = () => {
+    if (selector1 && selector2) {
+      return false
+    }
+    return true
   }
 
   return (
@@ -24,17 +33,33 @@ const ProductSelector = ({
               <div id="comparator">Please select an item to compare</div>
           </div>
           <div className="flex">
-              <input type="checkbox" id="show-diff" value="" disabled onChange={showDifferences} />
+              <input type="checkbox" id="show-diff" value={showDiff} disabled={checkSelectors()} onChange={showDifferences} />
               <label htmlFor="show-diff"> 
                   Show differences only
               </label>
           </div>
       </div>
       <div className="w-30p">
-          <ProductItem items={options} data={data} id='selector_1' selectedKey={selector1} setValue={setSelectorOne} optionsUpdater={setSelectorOptions} />
+          <ProductItem
+            items={options}
+            data={data}
+            id='selector_1'
+            selectedKey={selector1}
+            setValue={setSelectorOne}
+            optionsUpdater={setSelectorOptions}
+            setDiffFlag={setDiffFlag}
+          />
       </div>
       <div className="w-30p">
-          <ProductItem items={options} data={data} id='selector_2' selectedKey={selector2} setValue={setSelectorTwo} optionsUpdater={setSelectorOptions} />
+          <ProductItem
+            items={options}
+            data={data}
+            id='selector_2'
+            selectedKey={selector2}
+            setValue={setSelectorTwo}
+            optionsUpdater={setSelectorOptions}
+            setDiffFlag={setDiffFlag}
+          />
       </div>
     </div>
   )

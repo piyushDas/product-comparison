@@ -1,9 +1,52 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './feature-table.css'
 
-const FeaturesTable = ({featureList, selector1, selector2}) => {
-  let tableTemplate = ''
+const FeaturesTable = ({
+  featureList,
+  selector1,
+  selector2,
+  showDiff
+}) => {
 
+  useEffect(() => {
+    const hideRows = () => {
+      const row = document.getElementById('feature-table').children;
+      let headerElIndex;
+      let headerEl;
+      let count = 0
+      for (let index = 0; index < row.length; index++) {
+          let currentEl = row[index]
+          if(currentEl.classList.contains('table-header')){
+              count=0;
+              headerElIndex = index;
+              headerEl = row[index];
+          } else {
+              if(currentEl.children[1].innerText === currentEl.children[2].innerText){
+                  count++;
+                  row[index].style.display = 'none'
+              }
+              if((!row[index + 1] || (row[index + 1] && row[index + 1].classList.contains('table-header'))) && count == (index - headerElIndex)){
+                  headerEl.style.display = 'none'
+              }
+          }
+      }
+    }
+    const showAllRows = () => {
+        const row = document.getElementById('feature-table').children
+        for (let index = 0; index < row.length; index++) {
+            if (row[index].style.display === "none") {
+                row[index].style = ''
+            }
+        }
+    }
+    if (showDiff) {
+      hideRows()
+    } else {
+      showAllRows()
+    }
+  }, [showDiff])
+
+  let tableTemplate = ''
   tableTemplate = <tr></tr>
   if (featureList && featureList.length) {
     tableTemplate =  (
